@@ -1,4 +1,4 @@
-package com.dchristofolli;
+package com.dchristofolli.domain;
 
 import io.quarkus.mongodb.panache.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
@@ -6,15 +6,15 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import java.util.Objects;
 
 @MongoEntity(database = "crud", collection = "users")
-public class User extends PanacheMongoEntity {
+public class UserEntity extends PanacheMongoEntity {
     private String name;
     private String cpf;
     private String email;
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(String name, String cpf, String email) {
+    public UserEntity(String name, String cpf, String email) {
         this.name = name;
         this.cpf = cpf;
         this.email = email;
@@ -48,8 +48,8 @@ public class User extends PanacheMongoEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return name.equals(user.name) && Objects.equals(cpf, user.cpf) && Objects.equals(email, user.email);
+        UserEntity userEntity = (UserEntity) o;
+        return name.equals(userEntity.name) && Objects.equals(cpf, userEntity.cpf) && Objects.equals(email, userEntity.email);
     }
 
     @Override

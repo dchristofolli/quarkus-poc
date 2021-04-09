@@ -1,4 +1,4 @@
-package com.dchristofolli;
+package com.dchristofolli.config;
 
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;

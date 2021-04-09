@@ -1,4 +1,4 @@
-package com.dchristofolli;
+package com.dchristofolli.exception;
 
 import java.io.Serializable;
 

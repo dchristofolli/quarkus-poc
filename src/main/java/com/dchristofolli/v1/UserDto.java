@@ -1,4 +1,4 @@
-package com.dchristofolli;
+package com.dchristofolli.v1;
 
 import org.hibernate.validator.constraints.br.CPF;
 

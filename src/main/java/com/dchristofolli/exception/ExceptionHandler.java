@@ -1,4 +1,4 @@
-package com.dchristofolli;
+package com.dchristofolli.exception;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

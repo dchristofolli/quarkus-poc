@@ -1,11 +1,14 @@
-package com.dchristofolli;
+package com.dchristofolli.v1;
+
+import com.dchristofolli.domain.UserRepository;
+import com.dchristofolli.exception.ApiException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.dchristofolli.UserMapper.mapToEntity;
+import static com.dchristofolli.v1.UserMapper.mapToEntity;
 
 @ApplicationScoped
 public class UserService {
