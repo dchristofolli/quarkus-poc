@@ -2,6 +2,7 @@ package com.dchristofolli;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @ApplicationScoped
@@ -17,7 +18,7 @@ public class UserService {
         userRepository.persist(user);
     }
 
-    public User findByCpf(String cpf) {
-        return userRepository.findByCpf(cpf).orElseThrow(() -> new RuntimeException("Not found"));
+    public User findByCpf(String cpf) throws ApiException {
+        return userRepository.findByCpf(cpf).orElseThrow(() -> new ApiException("Invalid cpf number"));
     }
 }
