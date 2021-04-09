@@ -2,17 +2,13 @@ package com.dchristofolli;
 
 import io.quarkus.mongodb.panache.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.Email;
 import java.util.Objects;
 
 @MongoEntity(database = "crud", collection = "users")
 public class User extends PanacheMongoEntity {
     private String name;
-    @CPF
     private String cpf;
-    @Email
     private String email;
 
     public User() {

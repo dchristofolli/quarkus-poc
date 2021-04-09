@@ -1,5 +1,8 @@
 package com.dchristofolli;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
@@ -17,19 +20,40 @@ public class UserController {
     UserService userService;
 
     @GET
+    @Operation(description = "Returns all registered users")
+    @APIResponse(responseCode = "200", description = "Users displayed")
+    @APIResponse(responseCode = "500", description = "Internal error")
     public List<User> findAll() {
         return userService.findAll();
     }
 
     @POST
-    public Response create(@Valid User user) {
+    @Operation(description = "Allows to create a new user")
+    @APIResponse(responseCode = "201", description = "User created")
+    @APIResponse(responseCode = "400", description = "Bad request")
+    @APIResponse(responseCode = "500", description = "Internal error")
+    public Response create(@Valid @RequestBody UserDto user) {
         userService.create(user);
         return Response.status(201).build();
     }
 
     @GET
+    @Operation(description = "Returns a user data by cpf")
+    @APIResponse(responseCode = "200", description = "User displayed")
+    @APIResponse(responseCode = "400", description = "Invalid cpf number")
+    @APIResponse(responseCode = "500", description = "Internal error")
     @Path("{cpf}")
     public User findByCpf(@PathParam String cpf) throws ApiException {
         return userService.findByCpf(cpf);
+    }
+
+    @DELETE
+    @Operation(description = "Allows to delete a user")
+    @APIResponse(responseCode = "204", description = "User excluded")
+    @APIResponse(responseCode = "400", description = "Bad request")
+    @APIResponse(responseCode = "500", description = "Internal error")
+    @Path("{cpf}")
+    public void deleteByCpf(@PathParam String cpf) {
+        userService.deleteByCpf(cpf);
     }
 }
