@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
 
 @Path("users")
@@ -23,7 +24,7 @@ public class UserController {
     @Operation(description = "Returns all registered users")
     @APIResponse(responseCode = "200", description = "Users displayed")
     @APIResponse(responseCode = "500", description = "Internal error")
-    public List<User> findAll() {
+    public List<UserDto> findAll() {
         return userService.findAll();
     }
 
@@ -43,8 +44,19 @@ public class UserController {
     @APIResponse(responseCode = "400", description = "Invalid cpf number")
     @APIResponse(responseCode = "500", description = "Internal error")
     @Path("{cpf}")
-    public User findByCpf(@PathParam String cpf) throws ApiException {
+    public UserDto findByCpf(@PathParam String cpf) throws ApiException {
         return userService.findByCpf(cpf);
+    }
+
+    @PATCH
+    @Operation(description = "Allows to update a username")
+    @APIResponse(responseCode = "200", description = "Username updated")
+    @APIResponse(responseCode = "400", description = "Bad request")
+    @APIResponse(responseCode = "500", description = "Internal error")
+    @Path("{cpf}/{newName}")
+    public Response updateUsername(@PathParam String cpf, @PathParam String newName) {
+        userService.updateUsername(cpf, newName);
+        return Response.ok().build();
     }
 
     @DELETE
