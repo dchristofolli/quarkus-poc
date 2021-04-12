@@ -5,6 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -20,14 +21,6 @@ public class UserController {
     @Inject
     UserService userService;
 
-    @GET
-    @Operation(description = "Returns all registered users")
-    @APIResponse(responseCode = "200", description = "Users displayed")
-    @APIResponse(responseCode = "500", description = "Internal error")
-    public List<UserDto> findAll() {
-        return userService.findAll();
-    }
-
     @POST
     @Operation(description = "Allows to create a new user")
     @APIResponse(responseCode = "201", description = "User created")
@@ -39,13 +32,13 @@ public class UserController {
     }
 
     @GET
-    @Operation(description = "Returns a user data by cpf")
+    @Operation(description = "Returns a user data by id, username or cpf or all users " +
+        "if the request is made without parameter")
     @APIResponse(responseCode = "200", description = "User displayed")
-    @APIResponse(responseCode = "400", description = "Invalid cpf number")
     @APIResponse(responseCode = "500", description = "Internal error")
-    @Path("{cpf}")
-    public UserDto findByCpf(@PathParam String cpf) throws ApiException {
-        return userService.findByCpf(cpf);
+    @Path("{param}")
+    public List<UserDto> find(@QueryParam String param) throws ApiException {
+        return userService.find(param);
     }
 
     @PATCH
@@ -54,9 +47,8 @@ public class UserController {
     @APIResponse(responseCode = "400", description = "Bad request")
     @APIResponse(responseCode = "500", description = "Internal error")
     @Path("{cpf}/{newName}")
-    public Response updateUsername(@PathParam String cpf, @PathParam String newName) {
-        userService.updateUsername(cpf, newName);
-        return Response.ok().build();
+    public UserDto updateUsername(@PathParam String cpf, @PathParam String newName) {
+        return userService.updateUsername(cpf, newName);
     }
 
     @DELETE

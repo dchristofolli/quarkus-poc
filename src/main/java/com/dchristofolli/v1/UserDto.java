@@ -17,6 +17,9 @@ public class UserDto {
         this.email = email;
     }
 
+    public UserDto() {
+    }
+
     public String getName() {
         return name;
     }

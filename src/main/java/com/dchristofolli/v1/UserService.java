@@ -15,6 +15,12 @@ public class UserService {
     @Inject
     UserRepository userRepository;
 
+    public List<UserDto> find(String param) throws ApiException {
+        if (param == null)
+            return findAll();
+        return findByParam(param);
+    }
+
     public List<UserDto> findAll() {
         return userRepository.listAll()
             .parallelStream()
@@ -26,16 +32,18 @@ public class UserService {
         userRepository.persist(mapToEntity(user));
     }
 
-    public UserDto findByCpf(String cpf) throws ApiException {
-        return UserMapper.mapToResponse(userRepository.findByCpf(cpf)
-            .orElseThrow(() -> new ApiException("Invalid cpf number")));
+    public List<UserDto> findByParam(String param) {
+        return userRepository.find(param).parallelStream()
+            .map(UserMapper::mapToResponse)
+            .collect(Collectors.toList());
     }
 
     public void deleteByCpf(String cpf) {
         userRepository.deleteByCpf(cpf);
     }
 
-    public void updateUsername(String cpf, String newName) {
+    public UserDto updateUsername(String cpf, String newName) {
         userRepository.update("name", newName).where("cpf", cpf);
+        return findByParam(cpf).stream().findFirst().orElse(new UserDto());
     }
 }

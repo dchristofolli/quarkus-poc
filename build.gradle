@@ -16,9 +16,10 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-smallrye-openapi'
     implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
-    testImplementation 'com.google.code.gson:gson:2.8.6'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
+    testImplementation 'io.quarkus:quarkus-jdbc-h2'
+    testImplementation 'io.quarkus:quarkus-test-h2'
     testImplementation 'io.rest-assured:rest-assured'
 }
 
