@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GET
-    @Operation(description = "Returns a user data by id, username or cpf or all users " +
+    @Operation(description = "Returns a user data by id, username or cpf or displays all users " +
         "if the request is made without parameter")
     @APIResponse(responseCode = "200", description = "User displayed")
     @APIResponse(responseCode = "500", description = "Internal error")
